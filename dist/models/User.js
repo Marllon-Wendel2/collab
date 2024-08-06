@@ -1,3 +1,5 @@
+import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+
 export class User {
     constructor(id, nome, email, document, hashPass, salPass, posting) {
         if (posting) {

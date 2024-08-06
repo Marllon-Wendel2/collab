@@ -10,7 +10,6 @@ async function postUsuarios(req: Request, res: Response) {
             id: uuidv4(),
             ...data
         };
-        console.log(newUser)
        const  result =  await postUser(newUser)
         res.status(201).json(result)
     } catch (erro) {

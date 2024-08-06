@@ -7,7 +7,6 @@ async function postUsuarios(req, res) {
             id: uuidv4(),
             ...data
         };
-        console.log(newUser);
         const result = await postUser(newUser);
         res.status(201).json(result);
     }

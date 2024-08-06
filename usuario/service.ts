@@ -45,7 +45,10 @@ async function getUsers() {
 
 async function getUserById(id: string) {
     try {
-        const result = await users.filter((user: { id: any; }) => user.id === id)
+        const result =  users.filter((user: { id: any; }) => user.id === id)
+        if(result.length === 0) {
+            throw new Error('Não foi encontrado o User')
+        }
         return result;
     } catch (erro) {
         throw erro
@@ -55,8 +58,6 @@ async function getUserById(id: string) {
 async function putUser(id: any, body: { nome: any; cpf: any; email: any; hashPass: any; salPass: any; }) {
     let result = await getUserById(id)
     const userIndex = users.findIndex( (user: { id: any; }) => user.id === result.id)
-    console.log(body)
-    console.log(userIndex)
 
     try {
         if(!body) {
@@ -96,9 +97,7 @@ async function putUser(id: any, body: { nome: any; cpf: any; email: any; hashPas
 
 async function deleteUser(id: string) {
     let result = await getUserById(id)
-    console.log(result)
     const userIndex = users.findIndex( (user: { id: string; }) => user.id === id)
-    console.log(userIndex)
     
     try {
         if(userIndex !== -1) {

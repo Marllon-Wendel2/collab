@@ -33,7 +33,10 @@ async function getUsers() {
 }
 async function getUserById(id) {
     try {
-        const result = await users.filter((user) => user.id === id);
+        const result = users.filter((user) => user.id === id);
+        if (result.length === 0) {
+            throw new Error('Não foi encontrado o User');
+        }
         return result;
     }
     catch (erro) {
@@ -43,8 +46,6 @@ async function getUserById(id) {
 async function putUser(id, body) {
     let result = await getUserById(id);
     const userIndex = users.findIndex((user) => user.id === result.id);
-    console.log(body);
-    console.log(userIndex);
     try {
         if (!body) {
             throw new Error("Insira o conteudo para ser atualizado");
@@ -80,9 +81,7 @@ async function putUser(id, body) {
 }
 async function deleteUser(id) {
     let result = await getUserById(id);
-    console.log(result);
     const userIndex = users.findIndex((user) => user.id === id);
-    console.log(userIndex);
     try {
         if (userIndex !== -1) {
             users.splice(userIndex, 1);
