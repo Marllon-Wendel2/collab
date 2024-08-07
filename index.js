@@ -1,5 +1,6 @@
 import express from 'express';
 import rotaUsuario from './usuario/usuarioRouter.js'
+import { db } from './database/index.js';
 
 const app = express();
 
