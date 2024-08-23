@@ -1,14 +1,11 @@
-import express from 'express';
-import rotaUsuario from './usuario/usuarioRouter.js'
-import { db } from './database/index.js';
-
-const app = express();
-
-app.use(express.json())
-app.use('/usuario', rotaUsuario)
-
-const port = 8000
-
-app.listen(port, () => {
-    console.log(`Escutando a porta ${port}`)
-})
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = require("express");
+var usuarioRouter_1 = require("./src/usuario/usuarioRouter");
+var app = express();
+app.use(express.json());
+app.use('/usuario', usuarioRouter_1.default);
+var port = 8000;
+app.listen(port, function () {
+    console.log("Escutando a porta ".concat(port));
+});
