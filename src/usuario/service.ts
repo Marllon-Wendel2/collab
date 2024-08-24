@@ -4,7 +4,6 @@ import { UsuarioPostgres } from "./usuarioPostegres.js";
 const usuarioPostgres = new UsuarioPostgres
 
 async function postUser(newUser : UsersModel) {
-    console.log(newUser)
     const result = await usuarioPostgres.postUser(newUser)
     return result
 

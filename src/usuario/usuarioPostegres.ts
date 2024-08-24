@@ -12,7 +12,7 @@ export class UsuarioPostgres {
             if(!newUser.id || !newUser.name || !newUser.cpf_cnpj || !newUser.email || !newUser.password || !newUser.data_created) {
                 throw new Error("Body incompleto")
             } else {
-                await this.db.none("INSERT INTO users(id, name, cpf_cnpj, email, password, date_created) VALUES ($1, $2, $3, $4, $5, $6)", [newUser.id, newUser.name, newUser.cpf_cnpj, newUser.email, newUser.password, newUser.data_created]);
+                await this.db.none("INSERT INTO users(id, name, cpf_cnpj, email, password, date_created, role, ativo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [newUser.id, newUser.name, newUser.cpf_cnpj, newUser.email, newUser.password, newUser.data_created, newUser.role, newUser.ativo]);
             }
             return {success: true, message: "User created sucessfully"}
         } catch (erro) {
@@ -39,26 +39,51 @@ export class UsuarioPostgres {
 
     async updateUser(id: string, data: UsersModel) {
         try {
-            if(data.name)
+            if(data.name){
                 await this.db.none(
                     "UPDATE users SET name = $1 WHERE id = $2",
                     [data.name, id]
-            )
-            if(data.cpf_cnpj)
+            )}
+            if(data.cpf_cnpj){
                 await this.db.none(
                     "UPDATE users SET cpf_cnpj = $1 WHERE id = $2",
                     [data.cpf_cnpj, id]
-                )
-            if(data.email)
+                )}
+            if(data.email){
                 await this.db.none(
                     "UPDATE users SET email = $1 WHERE id = $2",
                     [data.email, id]
-                )
-            if(data.password)
+                )}
+            if(data.password){
                 await this.db.none(
                     "UPDATE users SET password = $1 WHERE id = $2",
                     [data.password, id]
+                )}
+
+            if(data.role) {
+                await this.db.none(
+                    "UPDATE users SET role = $1 WHERE id = $2",
+                    [data.role, id]
                 )
+            }
+            if(data.last_login) {
+                await this.db.none(
+                    "UPDATE users SET last_login = $1 WHERE id = $2",
+                    [data.last_login, id]
+                )
+            }
+            if(data.date_deleted) {
+                await this.db.none(
+                    "UPDATE users SET date_deleted = $1 WHERE id = $2",
+                    [data.data_created, id]
+                )
+            }
+            if(data.ativo) {
+                await this.db.none(
+                    "UPDATE users SET ativo = $1 WHERE id = $2",
+                    [data.ativo, id]
+                )
+            }
 
             return { success: true, message: "User updated successfully" };
         } catch (erro) {

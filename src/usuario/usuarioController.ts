@@ -9,6 +9,7 @@ async function postUsuarios(req : Request, res : Response) : Promise<void> {
         const newUser = {
             id: uuidv4(),
             ...data,
+            ativo: true,
             data_created: new Date()
         };
        const  result =  await postUser(newUser)
