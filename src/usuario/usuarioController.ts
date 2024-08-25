@@ -1,4 +1,4 @@
-import { deleteUser, getUserById, getUsers, postUser, putUser } from "./service.js"
+import { deleteUser, getUserById, getUsers, postUser, putUser } from "./serviceUser.js"
 import {v4 as uuidv4} from 'uuid';
 import { Request, Response } from "express";
 
