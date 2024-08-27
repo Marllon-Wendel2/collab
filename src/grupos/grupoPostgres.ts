@@ -15,8 +15,7 @@ class GruposPostgress {
             } else {
                 await this.db.none("INSERT INTO grouups (id, user_id, description, date_created) VALUES ($1, $2, $3, $4)", [newGrupo.id, newGrupo.user_id, newGrupo.description, newGrupo.date_created])
             }
-
-            return {success: true, message: "User created sucessfully"}
+            return {success: true, message: "Grupos created sucessfully"}
         } catch (erro) {
             const errorMenssage = (erro as Error).message
             return { success: false, message: errorMenssage};
@@ -37,6 +36,9 @@ class GruposPostgress {
     async getIdGrupos(id: string) : Promise <{ success: boolean, message: string }> {
         try {
             const grupo = await this.db.oneOrNone("SELECT * FROM grouups WHERE id = $1", id)
+            if(!grupo) {
+                throw new Error("Grupo não encontrado")
+            }
             return { success: true, message: grupo}
 
         } catch (erro) {
@@ -61,7 +63,7 @@ class GruposPostgress {
                 )
             }
 
-            return { success: true, message: "User updated successfully" };
+            return { success: true, message: "Grupo updated successfully" };
         } catch (erro) {
             const errorMenssage = (erro as Error).message
             return { success: false, message: errorMenssage};
