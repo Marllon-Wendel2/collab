@@ -2,6 +2,7 @@ import { deleteUser, getUserById, getUsers, postUser, putUser } from "./serviceU
 import {v4 as uuidv4} from 'uuid';
 import { Request, Response } from "express";
 import creathashAndSal from "../auth/hashAndSal.js";
+import { authUser } from "../auth/auth.js";
 
 async function postUsuarios(req : Request, res : Response) : Promise<void> {
     const {name, cpf_cnpj, email, role} = req.body;
@@ -75,10 +76,24 @@ async function deleteUsuario(req : Request, res : Response) : Promise<void> {
 
 }
 
+async function authUsuarioController(req: Request, res: Response) : Promise <void> {
+    const { id } = req.params;
+    const { password } = req.body;
+     try {
+        const user = await getUserById(id);
+        const result = await authUser(user, password)
+        res.status(200).json(result);
+     } catch (erro) {
+        const errorMenssage = (erro as Error).message
+        res.status(500).json({ error: errorMenssage})
+     }
+}
+
 export {
     postUsuarios,
     getUsuarios,
     getUsuariosId,
     putUsuario,
-    deleteUsuario
+    deleteUsuario,
+    authUsuarioController
 }

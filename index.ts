@@ -2,6 +2,9 @@ import express from 'express';
 import rotaUsuario from './src/usuario/usuarioRouter.js';
 import rotaGrupo from './src/grupos/grupoRouter.js';
 import rotaProdutos from './src/produtos/produtoRouter.js';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 const app = express();
 
