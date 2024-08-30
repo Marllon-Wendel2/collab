@@ -10,10 +10,10 @@ class GruposPostgress {
     async postGrupo(newGrupo: GruposModel) : Promise <{success: boolean; message: string}> 
     {
         try {
-            if(!newGrupo.id || !newGrupo.user_id || !newGrupo.description || !newGrupo.date_created) {
+            if(!newGrupo.id || !newGrupo.description || !newGrupo.date_created) {
                 throw new Error("Informe todos os campos do modelo")
             } else {
-                await this.db.none("INSERT INTO grouups (id, user_id, description, date_created) VALUES ($1, $2, $3, $4)", [newGrupo.id, newGrupo.user_id, newGrupo.description, newGrupo.date_created])
+                await this.db.none("INSERT INTO grouups (id, description, date_created) VALUES ($1, $2, $3)", [newGrupo.id, newGrupo.description, newGrupo.date_created])
             }
             return {success: true, message: "Grupos created sucessfully"}
         } catch (erro) {

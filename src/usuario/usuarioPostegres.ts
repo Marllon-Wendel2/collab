@@ -12,7 +12,7 @@ export class UsuarioPostgres {
             if(!newUser.id || !newUser.name || !newUser.cpf_cnpj || !newUser.email || !newUser.password || !newUser.data_created) {
                 throw new Error("Body incompleto")
             } else {
-                await this.db.none("INSERT INTO users(id, name, cpf_cnpj, email, password, date_created, role, ativo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", [newUser.id, newUser.name, newUser.cpf_cnpj, newUser.email, newUser.password, newUser.data_created, newUser.role, newUser.ativo]);
+                await this.db.none("INSERT INTO users(id, name, cpf_cnpj, email, password, salPassword, date_created, role, ativo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)", [newUser.id, newUser.name, newUser.cpf_cnpj, newUser.email, newUser.password, newUser.salPassword, newUser.data_created, newUser.role, newUser.ativo]);
             }
             return {success: true, message: "User created sucessfully"}
         } catch (erro) {

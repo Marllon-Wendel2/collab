@@ -1,16 +1,27 @@
 import { deleteUser, getUserById, getUsers, postUser, putUser } from "./serviceUser.js"
 import {v4 as uuidv4} from 'uuid';
 import { Request, Response } from "express";
+import creathashAndSal from "../auth/hashAndSal.js";
 
 async function postUsuarios(req : Request, res : Response) : Promise<void> {
-    const data = req.body;
+    const {name, cpf_cnpj, email, role} = req.body;
+    const {password} = req.body
 
     try {
+       const {hashPassword, salPassword} = await creathashAndSal(password)
+
         const newUser = {
             id: uuidv4(),
-            ...data,
+            name,
+            cpf_cnpj,
+            email,
+            password: hashPassword,
+            salPassword: salPassword,
+            role,
             ativo: true,
-            data_created: new Date()
+            data_created: new Date(),
+            date_deleted: new Date(),
+            last_login: new Date()
         };
        const  result =  await postUser(newUser)
         res.status(201).json(result)
