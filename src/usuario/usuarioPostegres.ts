@@ -20,6 +20,7 @@ export class UsuarioPostgres {
                 return {success: false, message: errorMenssage}
         }
     }
+
     async findUsers() {
         const storeUsers = await this.db.manyOrNone("SELECT * FROM users")
         if(storeUsers) {
@@ -28,8 +29,18 @@ export class UsuarioPostgres {
             throw new Error('Usuarios não encontrados')
         }
     }
+
     async findUsersById(id : string) {
         const storeUser = await this.db.oneOrNone("SELECT * FROM users WHERE id = $1", id)
+        if(storeUser) {
+            return storeUser;
+        } else {
+            throw new Error('Usuario não encontrado')
+        }
+    }
+
+    async findUsersByEmail(email : string) {
+        const storeUser = await this.db.oneOrNone("SELECT * FROM users WHERE email = $1", email)
         if(storeUser) {
             return storeUser;
         } else {
@@ -105,4 +116,6 @@ export class UsuarioPostgres {
             return { success: false, message: errorMenssage }
         }
     }
+
+
 }

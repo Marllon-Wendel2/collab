@@ -14,7 +14,7 @@ class PayloadModel {
 }
 
 function creatJwt(payload : PayloadModel) {
-    const secretKey : string = process.env.SEGREDO;
+    const secretKey : string = process.env.SEGREDO || "";
     const token = jwt.sign(payload, secretKey, {
         expiresIn: 86400
     })

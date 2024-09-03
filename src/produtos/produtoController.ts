@@ -43,6 +43,17 @@ class ProdutoController {
         }
     }
 
+    async listaProdutos(req: Request, res: Response) : Promise<void> {
+
+        try {
+            const result = await produtoPostgres.getListaProdutos()
+            res.status(200).json(result)
+        } catch (erro) {
+            const errorMenssage = (erro as Error).message;
+            res.status(500).json({ success: false, erro: errorMenssage });
+        }
+    }
+
     async putProdutos(req: Request, res: Response) : Promise <void> {
         const { id } = req.params;
         const data = req.body;

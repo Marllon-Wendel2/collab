@@ -43,6 +43,20 @@ class ProdutosPostgres {
         }
     }
 
+    async getListaProdutos () : Promise <{success: boolean; message: string[]}>{
+        try {
+            const allProdutos =  await db.manyOrNone<ProdutoModel>("SELECT * FROM produtos");
+            const listaDeProdutos = allProdutos.map((produto : ProdutoModel) => produto.description)
+            const listaProdutosUnicos : Array<any> = [...new Set(listaDeProdutos)];
+            console.log(listaProdutosUnicos)
+            return { success: true, message: listaProdutosUnicos}
+
+        } catch (erro) {
+            const errorMenssage = (erro as Error).message;
+            return { success: false, message: [errorMenssage]}
+        }
+    }
+
     async putProdutos(id : string, data : ProdutoModel) : Promise <{ success: boolean, message: string }> {
         try {
             if(data.user_id) {
