@@ -1,4 +1,5 @@
 import db from "../database/index.js";
+import { ordenaProdutos } from "../utils/sorftProdutos.js";
 import ProdutoModel from "./produtoModel.js";
 
 class ProdutosPostgres {
@@ -43,13 +44,30 @@ class ProdutosPostgres {
         }
     }
 
-    async getListaProdutos () : Promise <{success: boolean; message: string[]}>{
+    async getListaProdutos () : Promise <{success: boolean; message: {}}>{
         try {
+            //armazena nome do produto e quantidade
+            let contagemProdutos : Record<string, number> = {};
+            let listOrdenadaProdutos : Record<string, number> = {};
+
+            //Pega todos os produtops
             const allProdutos =  await db.manyOrNone<ProdutoModel>("SELECT * FROM produtos");
             const listaDeProdutos = allProdutos.map((produto : ProdutoModel) => produto.description)
+
+            //Remove nomes repetidos
             const listaProdutosUnicos : Array<any> = [...new Set(listaDeProdutos)];
-            console.log(listaProdutosUnicos)
-            return { success: true, message: listaProdutosUnicos}
+
+            await Promise.all(
+                listaProdutosUnicos.map(async (produto) => {
+                    const { count } = await db.oneOrNone<{ count: number }>(
+                        "SELECT COUNT(*) as count FROM produtos WHERE description = $1", produto
+                    )
+                    contagemProdutos[produto] = count;
+                    listOrdenadaProdutos = await ordenaProdutos(contagemProdutos)
+                })
+            )
+            
+            return { success: true, message: listOrdenadaProdutos}
 
         } catch (erro) {
             const errorMenssage = (erro as Error).message;
