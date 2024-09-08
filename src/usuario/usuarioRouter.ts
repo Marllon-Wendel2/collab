@@ -4,7 +4,7 @@ import { authUsuarioController, deleteUsuario, getUsuarios, getUsuariosId, postU
 const router = Router();
 
 router.post('/', postUsuarios);
-router.post('/:id/auth', authUsuarioController)
+router.post('/auth', authUsuarioController)
 router.get('/', getUsuarios);
 router.get('/:id', getUsuariosId);
 router.put('/:id', putUsuario);
