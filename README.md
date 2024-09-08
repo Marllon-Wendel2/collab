@@ -24,7 +24,7 @@ API para controle de estoque de uma empresa de pequeno ou médio porte.
 - Controle de usuarios
 - Controle do estoque
 - Authenticação
-- Conexão a postgres(recomendado) ou a um banco de dado SQL
+- Conexão a postgres(recomendado) ou a um banco de dados SQL
 
 
 ## Stack utilizada
@@ -58,7 +58,7 @@ https://lucid.app/lucidchart/b116981e-9a7b-4165-93ec-48393cd4a5c6/edit?viewport_
 Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
 
 `STRING_DB`
-String de acesso para conectar a um banco local de dados.
+String de acesso para conectar a um banco de dados local.
 
 `SEGREDO`
 Uma secretKey para geração de token ao relizar a autenticação.
