@@ -22,7 +22,7 @@ class ProdutosPostgres {
         }
     }
 
-    async getProdutos() : Promise <{success: boolean; message: string}> {
+    async getProdutos() : Promise <{success: boolean; message: Array<string>}> {
         try {
             const allProdutos =  await db.manyOrNone("SELECT * FROM produtos");
             return { success: true, message: allProdutos}
