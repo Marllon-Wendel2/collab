@@ -4,6 +4,7 @@ CREATE TABLE users (
     cpf_cnpj VARCHAR(20) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
+    salPassword VARCHAR (255) NOT NULL,
     date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_login TIMESTAMP,
     role VARCHAR(50),
