@@ -3,6 +3,7 @@ import rotaUsuario from './src/usuario/usuarioRouter.js';
 import rotaGrupo from './src/grupos/grupoRouter.js';
 import rotaProdutos from './src/produtos/produtoRouter.js';
 import rotaBemVindo from './src/rotaHouse.js';
+import rotaIstoky from './src/produtosItoky/itokyRouter.js'
 import cors from "cors"
 import dotenv from 'dotenv';
 
@@ -16,6 +17,7 @@ app.use('/', rotaBemVindo)
 app.use('/usuario', rotaUsuario)
 app.use('/grupos', rotaGrupo)
 app.use('/produtos', rotaProdutos)
+app.use('/istoky', rotaIstoky)
 
 const port = 8000
 
